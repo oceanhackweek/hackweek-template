@@ -17,8 +17,5 @@ map_users = [{
   }
 ]
 
-# Name of your cluster
-cluster_name = "hackweek-cluster"
-
-# Name of your VPC
-vpc_name     = "hackweek-vpc"
+# prefix for resources in this infrastructure
+name_prefix = "ohw-"
