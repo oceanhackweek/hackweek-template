@@ -11,6 +11,11 @@ map_users = [{
     groups   = ["system:masters"]
   },
   {
+    userarn  = "arn:aws:iam::783380859522:user/amandatan"
+    username = "amandatan"
+    groups   = ["system:masters"]
+  },
+  {
     userarn  = "arn:aws:iam::783380859522:user/terraform-bot"
     username = "terraform-bot"
     groups   = ["system:masters"]
