@@ -8,10 +8,10 @@ jupyterhub:
       #  contactEmail: scottyh@uw.edu
   singleuser:
     profileList:
-      - display_name: ""
+      - display_name: "Test ICESat-2 Hackweek Image"
         default: true
         kubespawner_override:
-          image: uwhackweeks/
+          image: uwhackweeks/icesat2:latest
     initContainers:
       - name: volume-mount-hack
         image: busybox
