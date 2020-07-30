@@ -37,4 +37,4 @@ jupyterhub:
 rbac:
   enabled: true
   serviceAccountName: "jovyan"
-  serviceAccountRoleArn: ""
+  serviceAccountRoleArn: "ohw-bucket-access-serviceaccount"
