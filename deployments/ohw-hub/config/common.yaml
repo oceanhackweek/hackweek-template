@@ -46,7 +46,7 @@ jupyterhub:
       cloneRepo: |
         # Hack solution for branding
         import os, shutil
-        repo = 'https://github.com/scottyhq/pangeo-custom-jupyterhub-templates'
+        repo = 'https://github.com/pangeo-data/pangeo-custom-jupyterhub-templates'
         webdir = '/usr/local/share/jupyterhub/static'
         dst = '/srv/jupyterhub/style'
         shutil.rmtree(dst, ignore_errors=True)
@@ -56,8 +56,8 @@ jupyterhub:
         c.JupyterHub.template_paths = ['/srv/jupyterhub/style/templates']
         c.JupyterHub.template_vars = {
           'pangeo_hub_title': '',
-          'pangeo_hub_subtitle': 'a community hub for the pangeo project',
-          'pangeo_welcome': """Welcome to _unspecified website_, the computational environment for <a href=""> Hackweek</a>! This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. <strong>This is a prototype and should be treated accordingly. We make no promises that the hub will remain active. Do not store passwords or sensitive data in your home directory</strong> Access is currently limited to members of the <a href="https://github.com/pangeo-data">Pangeo GitHub Organization</a> and the <a href=""> Hackweek Organization</a>. To provide feedback and report any technical problems, please use the <a href="">github issue tracker</a>."""
+          'pangeo_hub_subtitle': 'a community hub for OceanHackWeek 2020',
+          'pangeo_welcome': """Welcome to https://ocean.hackweek.io, the computational environment for <a href="https://oceanhackweek.github.io/">OceanHackWeek</a>! This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. <strong>This is a prototype and should be treated accordingly. We make no promises that the hub will remain active. Do not store passwords or sensitive data in your home directory</strong> Access is currently limited to certain members of the <a href="https://github.com/oceanhackweek">Oceanhackweek GitHub Organization</a> . To provide feedback and report any technical problems, please use the <a href="https://github.com/oceanhackweek/ohw-jupyterhub-2020/issues">github issue tracker</a>."""
         }
     extraVolumes:
       - name: custom-assets
