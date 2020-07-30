@@ -30,7 +30,7 @@ jobs:
      # - uses: docker://sebialvis/hubploy:2020040816492112c8c5
      #   name: build & push image if needed
      #   with:
-     #     args: build hackweek-hub --check-registry --push
+     #     args: build ohw-hub --check-registry --push
       - uses: docker://sebialvis/hubploy:2020040816492112c8c5
         name: Setup Helm
         with:
@@ -40,9 +40,9 @@ jobs:
         name: Deploy to staging
         if: github.ref == 'refs/heads/staging'
         with:
-          args: deploy hackweek-hub hub staging
+          args: deploy ohw-hub hub staging
       - uses: docker://sebialvis/hubploy:2020040816492112c8c5
         name: Deploy to prod
         if: github.ref == 'refs/heads/prod'
         with:
-          args: deploy hackweek-hub hub prod
+          args: deploy ohw-hub hub prod
