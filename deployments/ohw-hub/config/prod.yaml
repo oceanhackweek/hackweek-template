@@ -40,7 +40,7 @@ jupyterhub:
             claimName: shared-nfs
         - name: tutorial-data
           persistentVolumeClaim:
-            claimName: tutorial-data-claim
+            claimName: ohw-tutorial-data-claim
     lifecycleHooks:
       postStart:
         exec:
@@ -52,4 +52,4 @@ jupyterhub:
               test -L /home/jovyan/tutorial-data || ln -s /srv/tutorial-data /home/jovyan/tutorial-data ;
   auth:
     github:
-      callbackUrl: ""
+      callbackUrl: "http://ocean.hackweek.io/hub/oauth_callback"

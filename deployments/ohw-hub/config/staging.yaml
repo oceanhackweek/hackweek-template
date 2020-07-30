@@ -47,7 +47,7 @@ jupyterhub:
               test -L /home/jovyan/shared || ln -s /srv/shared /home/jovyan/shared
   auth:
     github:
-      callbackUrl: 
+      callbackUrl: "http://staging.ocean.hackweek.io/hub/oauth_callback"
   hub:
     resources:
       requests:
