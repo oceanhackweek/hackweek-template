@@ -5,11 +5,11 @@ jupyterhub:
       #enabled: false
   proxy:
     https:
-      enabled: false
-      #hosts:
-      #  - 
-      #letsencrypt:
-      #  contactEmail: scottyh@uw.edu
+      #enabled: false
+      hosts:
+        - staging.ocean.hackweek.io
+      letsencrypt:
+        contactEmail: scottyh@uw.edu
   singleuser:
     profileList:
       - display_name: "Test ICESat-2 Hackweek Image"
