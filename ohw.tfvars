@@ -1,7 +1,7 @@
 # Put your cluster where your data is
 region = "us-west-2"
 
-profile = "terraform-bot"
+profile = "ohw-terraform-bot"
 
 # See https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html for
 # more information
