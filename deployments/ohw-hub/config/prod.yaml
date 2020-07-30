@@ -1,0 +1,55 @@
+jupyterhub: 
+  proxy:
+    https:
+      #enabled: false
+      hosts:
+        - ocean.hackweek.io
+      letsencrypt:
+        contactEmail: scottyh@uw.edu
+  singleuser:
+    profileList:
+      - display_name: "Test ICESat-2 Hackweek Image"
+        default: true
+        kubespawner_override:
+          image: uwhackweeks/icesat2:latest
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command:
+          - "sh"
+          - "-c"
+          - >
+            id && chown 1000:1000 -R /srv/shared ;
+            id && chown 0:0 -R /srv/tutorial-data ;
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+          - name: jupyterhub-shared
+            mountPath: /srv/shared
+          - name: tutorial-data
+            mountPath: /srv/tutorial-data/
+    storage:
+      extraVolumeMounts:
+        - name: jupyterhub-shared
+          mountPath: /srv/shared
+        - name: tutorial-data
+          mountPath: /srv/tutorial-data/
+      extraVolumes:
+        - name: jupyterhub-shared
+          persistentVolumeClaim:
+            claimName: shared-nfs
+        - name: tutorial-data
+          persistentVolumeClaim:
+            claimName: ohw-tutorial-data-claim
+    lifecycleHooks:
+      postStart:
+        exec:
+          command:
+            - "sh"
+            - "-c"
+            - >
+              test -L /home/jovyan/shared || ln -s /srv/shared /home/jovyan/shared ;
+              test -L /home/jovyan/tutorial-data || ln -s /srv/tutorial-data /home/jovyan/tutorial-data ;
+  auth:
+    github:
+      callbackUrl: "http://ocean.hackweek.io/hub/oauth_callback"

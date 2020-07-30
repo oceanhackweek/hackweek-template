@@ -1,0 +1,4 @@
+[submodule "cloud-infrastructure"]
+	path = cloud-infrastructure
+	url = https://github.com/oceanhackweek/ohw-terraform-deploy
+	branch = main

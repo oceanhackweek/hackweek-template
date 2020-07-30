@@ -1,0 +1,84 @@
+jupyterhub:
+  prePuller:
+    continuous:
+      enabled: false
+  singleuser:
+    memory:
+      guarantee: 512M
+      #limit: 1G
+    serviceAccountName: jovyan
+   # Only settings required to use the efs-provisioner
+    storage:
+      dynamic:
+        storageClass: aws-efs
+    startTimeout: 600
+    cpu:
+      limit: 4
+      guarantee: 1.75
+    memory:
+      limit: 8G
+      guarantee: 7G
+  # automatically terminate pods after 12 hours 
+  cull:
+    maxAge: 43200
+  auth:
+    type: github
+    github:
+      #orgWhitelist:
+      #  - "Oceanhackweek"
+    whitelist:
+      - emiliom
+      - ocefpaf
+      - abkfenris
+      - castelao
+      - asx-
+      - sbeaulieu
+      - albenson-usgs
+      - alisonrgray
+      - amanda-tan
+      - leewujung
+      - cgentemann
+      - cathmmitchell
+    scopes:
+      - "read:user"
+      - "user:email"
+      - "read:org"
+    admin:
+      access: true
+      users:
+        - salvis2
+        - emiliom
+        - amanda-tan
+        - ocefpaf
+        - abkfenris
+  hub:
+    resources:
+      requests:
+        cpu: 0.5
+        memory: 1G
+      limits:
+        cpu: 1.5
+        memory: 2G
+    extraConfig:
+      cloneRepo: |
+        # Hack solution for branding
+        import os, shutil
+        repo = 'https://github.com/pangeo-data/pangeo-custom-jupyterhub-templates'
+        webdir = '/usr/local/share/jupyterhub/static'
+        dst = '/srv/jupyterhub/style'
+        shutil.rmtree(dst, ignore_errors=True)
+        os.system(f'git clone {repo} {dst}')
+        os.system(f'cp -rf {dst}/extra-assets {webdir}')
+      customPodHook: |
+        c.JupyterHub.template_paths = ['/srv/jupyterhub/style/templates']
+        c.JupyterHub.template_vars = {
+          'pangeo_hub_title': '',
+          'pangeo_hub_subtitle': 'a community hub for OceanHackWeek 2020',
+          'pangeo_welcome': """Welcome to https://ocean.hackweek.io, the computational environment for <a href="https://oceanhackweek.github.io/">OceanHackWeek</a>! This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. <strong>This is a prototype and should be treated accordingly. We make no promises that the hub will remain active. Do not store passwords or sensitive data in your home directory</strong> Access is currently limited to certain members of the <a href="https://github.com/oceanhackweek">Oceanhackweek GitHub Organization</a> . To provide feedback and report any technical problems, please use the <a href="https://github.com/oceanhackweek/ohw-jupyterhub-2020/issues">github issue tracker</a>."""
+        }
+    extraVolumes:
+      - name: custom-assets
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: custom-assets
+        mountPath: /usr/local/share/jupyterhub/static/extra-assets

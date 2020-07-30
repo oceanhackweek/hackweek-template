@@ -1,0 +1,58 @@
+jupyterhub:
+  #prePuller:
+    #continuous:
+      # Don't need continuous pre-puller on staging
+      #enabled: false
+  proxy:
+    https:
+      #enabled: false
+      hosts:
+        - staging.ocean.hackweek.io
+      letsencrypt:
+        contactEmail: scottyh@uw.edu
+  singleuser:
+    profileList:
+      - display_name: "Test ICESat-2 Hackweek Image"
+        default: true
+        kubespawner_override:
+          image: uwhackweeks/icesat2:latest
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command:
+          - "sh"
+          - "-c"
+          - >
+            id && chown 1000:1000 -R /srv/shared ;
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+          - name: jupyterhub-shared
+            mountPath: /srv/shared
+    storage:
+      extraVolumeMounts:
+        - name: jupyterhub-shared
+          mountPath: /srv/shared
+      extraVolumes:
+        - name: jupyterhub-shared
+          persistentVolumeClaim:
+            claimName: shared-nfs
+    lifecycleHooks:
+      postStart:
+        exec:
+          command:
+            - "sh"
+            - "-c"
+            - >
+              test -L /home/jovyan/shared || ln -s /srv/shared /home/jovyan/shared
+  auth:
+    github:
+      callbackUrl: "http://staging.ocean.hackweek.io/hub/oauth_callback"
+  hub:
+    resources:
+      requests:
+        cpu: 0
+        memory: 0
+      limits:
+        cpu: 0.5
+        memory: 1G
