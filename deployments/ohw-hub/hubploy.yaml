@@ -1,5 +1,5 @@
 images:
-  image_name: "783380859522.dkr.ecr.us-west-2.amazonaws.com/hackweek-hub-user-image"  # TODO: Full path to your docker image, based on the following pattern
+  image_name: "783380859522.dkr.ecr.us-west-2.amazonaws.com/ohw-hub-user-image"  # TODO: Full path to your docker image, based on the following pattern
   # On AWS: <account-id>.dkr.ecr.<zone>.amazonaws.com/<your-hub-name>-user-image
   # On Google Cloud: gcr.io/<project-name>/<your-hub-name>-user-image
   registry:
@@ -28,7 +28,7 @@ cluster:
   aws:
     project: 783380859522 # TODO: AWS account id
     zone: us-west-2 # TODO: Zone or region in which your cluster is set up
-    cluster: hackweek-cluster # TODO: The name of your EKS cluster
+    cluster: ohw-cluster # TODO: The name of your EKS cluster
     # TODO: Get AWS credentials that can access your EKS cluster, in same format as ~/.aws/credentials
     # then put them in secrets/aws-eks-config.cfg
     service_key: aws-eks-config.cfg
