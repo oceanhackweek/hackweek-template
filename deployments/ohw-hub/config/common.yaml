@@ -24,21 +24,8 @@ jupyterhub:
   auth:
     type: github
     github:
-      #orgWhitelist:
-      #  - "Oceanhackweek"
-    whitelist:
-      - emiliom
-      - ocefpaf
-      - abkfenris
-      - castelao
-      - asx-
-      - sbeaulieu
-      - albenson-usgs
-      - alisonrgray
-      - amanda-tan
-      - leewujung
-      - cgentemann
-      - cathmmitchell
+      orgWhitelist:
+        - "oceanhackweek"
     scopes:
       - "read:user"
       - "user:email"
